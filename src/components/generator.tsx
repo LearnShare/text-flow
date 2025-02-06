@@ -68,6 +68,24 @@ export function Generator() {
     setTick,
   ] = useState(0);
 
+  // run or stop
+  const [
+    run,
+    setRun,
+  ] = useState(false);
+  const toggleRun = () => {
+    setRun((oldValue) => !oldValue);
+  };
+
+  // reset all data
+  const reset = () => {
+    setWaves([]);
+    setFlow('');
+    setWait(0);
+    setTick(0);
+    setRun(false);
+  };
+
   // tick time (ms)
   const tickTime = 200;
   // tick length
@@ -79,7 +97,8 @@ export function Generator() {
 
   // tick timer
   useEffect(() => {
-    if (wait >= timeout) {
+    if (!run
+        || wait >= timeout) {
       return;
     }
 
@@ -106,6 +125,7 @@ export function Generator() {
 
     return () => clearInterval(timer);
   }, [
+    run,
     wait,
     timeout,
     chars,
@@ -116,10 +136,12 @@ export function Generator() {
   return (
     <div>
       <div className="flex gap-4 mt-5">
-        <Button>运行</Button>
+        <Button
+            onClick={ () => toggleRun() }>{ run ? '暂停' : '运行' }</Button>
         <Button
             onClick={ () => addWave() }>追加</Button>
-        <Button>重置</Button>
+        <Button
+            onClick={ () => reset() }>重置</Button>
       </div>
       <ul className="font-mono">
         <li>waves: { waves.length || 0 }</li>
