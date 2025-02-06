@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-interface ButtonProps extends HTMLButtonElement {
-  className: string;
+type ButtonProps = React.ComponentProps<'button'> & {
+  className?: string;
   children: React.ReactNode;
 }
 

@@ -7,7 +7,7 @@ import React, {
 
 interface LogProps {
   text: string;
-  autoScroll: boolean;
+  autoScroll?: boolean;
 }
 
 export function Log({
